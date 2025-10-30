@@ -23,9 +23,8 @@ class BasicTokenizer {
     static constexpr std::size_t INITIAL_VOCAB_SIZE = 256;
     BasicTokenizer(){
         std::cout << "Tokenizer is initialized.." << std::endl;
-        merges = std::vector<Merge>{};
         vocab.reserve(INITIAL_VOCAB_SIZE);
-        for (auto t = 0; t < INITIAL_VOCAB_SIZE; ++t) {
+        for (int t = 0; t < INITIAL_VOCAB_SIZE; ++t) {
             vocab.push_back(Expansion{t});
         }
     }
@@ -56,7 +55,8 @@ class BasicTokenizer {
         return "hello world";
     }
 
-    std::size_t find_pair_index(const IntPair& pair){
+    private:
+    std::size_t find_pair_index(const IntPair& pair) const{
         for (std::size_t i = 0; i < merges.size(); ++i) {
             if (merges[i].pair == pair) {
                 return i;
@@ -65,8 +65,8 @@ class BasicTokenizer {
 
         return merges.size();
     }
-    std::map<IntPair, int> token_counts(std::vector<TokenID>& ids);
-    private:
+    std::map<IntPair, int> token_counts(std::vector<TokenID>& ids) const;
+    void merge_pairs(std::vector<TokenID>& ids, const IntPair& pair, TokenID new_id) const ;
     // merger array
     std::vector<Merge> merges;
     // num_merges use the fucntion of merges.size()
@@ -76,7 +76,4 @@ class BasicTokenizer {
     /*
      * [[0], [1,2]]
     */
-    void merge(std::vector<TokenID>& ids, const IntPair& pair, TokenID new_id) const {
-
-    }
 };
