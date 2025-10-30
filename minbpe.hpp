@@ -80,7 +80,3 @@ class BasicTokenizer {
 
     }
 };
-
-int main() {
-    return 0;
-}
